@@ -31,28 +31,29 @@ The data set used was scraped from [Overbuff](https://www.overbuff.com/heroes) c
 df = read.csv("hero_stats_3_months.csv")
 ```
 
-```{r clean data, echo=TRUE, warning=FALSE, include=TRUE}
-#Transform original data set to only include the hero and 
-df1 <- df %>% select(1, 2, 6, 10, 14, 18, 22, 26)
+## Cleaning data for Visualisation 1
+blah blah blah
+
+```{r clean data for p1, echo=TRUE, warning=FALSE, include=TRUE}
+#Transform original data set to only include the hero and pick rates for each division
+dfp1 <- df %>% select(1, 2, 6, 10, 14, 18, 22, 26)
 
 #Create a variable that is the sum of pick rate across all divisions so that visualisaion 1 can be ordered as desired
-df1$totalpick <- rowSums(df1[,c(2:8)])
+dfp1$totalpick <- rowSums(dfp1[,c(2:8)])
 
 #Transform df1 to arrange heroes by total pick rate to create the desired order in the visualisation (adding traces in a loop overrides the 'reorder' function in plotly)
-dfall <- df1 %>% arrange(desc(totalpick))
+dfp1 <- dfp1 %>% arrange(desc(totalpick))
 ```
 
-## Visualisation 1 - Comparing Pick Rate Across Divisions
+## Visualisation 1 - Stacked Bar Chart Comparing Pick Rate Across All 7 Divisions
 
 Need to mention that a grouped bar chart would be better per that article (on brave browser) but too many on the x axis to have a grouped. to combat the issue that stacked bar charts introduced this visualistion was made with plotly to facicilaite hover labels 
 
 A stacked bar chart will show a stand out trend of what hereos are picked more overall across all divisions. A more detailed look at the visualisation will show the differences in pick rate of each hero across the 7 divisions. Using plotly to create the visualisation (instead of ggplot) allows the use of the hover label feature. This feature is especially useful with stacked bar charts as many bars do not have a 0 starting point making it hard to determine the value that the bar represents.
 
-```{r create visualisation, echo=TRUE, warning=FALSE, include=TRUE}
-
-
+```{r create visualisation 1, echo=TRUE, warning=FALSE, include=TRUE}
 #Set the plot space and add the first division
-p1 <- plot_ly(dfall, x = ~hero,
+p1 <- plot_ly(dfp1, x = ~hero,
                     y = ~bronze_pick_rate, 
                     name = "Bronze Pick Rate",
                     type = "bar", 
@@ -77,42 +78,87 @@ p1 <- plot_ly(dfall, x = ~hero,
                       tickformat = "%",
                       range = c(0, 0.70)),
                       barmode = "stack")
-
 #Create a value containing the 6 divisions not yet plotted for use in a for loop
-  divplot <- colnames(dfall[c(3:8)])
-  
+  divplot <- colnames(dfp1[c(3:8)])
 #Create a value for use in the add trace loop to set the colours for each division (colours match the exact hex codes that Overbuff assigned to each division)
   colours <- c("#CAD6CC", "#EFEB8B", "#4E98BB", "#D9E8F3", "#EDA152", "#FEE072")
-    
 #Create a loop to add a trace for each of the remaining divisions
   for(i in divplot){
-    p1 <- p1 %>% add_trace(x = dfall[["hero"]], 
-                           y = dfall[[i]],
+    p1 <- p1 %>% add_trace(x = dfp1[["hero"]], 
+                           y = dfp1[[i]],
                            #Replace "_" with " " and capitalise the division titles
                            name = gsub(x = i, pattern = "\\_", replacement = " ") %>% str_to_title(i),
                            #Change the colours of the divisions per the "colours" variable previously created
                            marker = list(color = colours[[match(i, divplot)]]))
   }
-  
 #Display p1 visualisation  
 p1
 ```
 
-Create second visualisation with the heroes split into 4 graphs (offence, defence, tank, support). Rather than using a stacked bar chart use grouped bar charts.
+##Cleaning data for visualiation 2
 
-```{r create visualisation, echo=TRUE, warning=FALSE, include=TRUE}
-dfoff <- dfall %>% slice(5, 14, 15, 16, 17, 21, 24, 25, 26, 31)
+data needs stuff doing to it for p2
+```{r clean data for p2, echo=TRUE, warning=FALSE, include=TRUE}
+dfp2 <- df %>% select(1, 2, 26)
 
-dfdef <- dfall %>% slice(13, 18, 23, 27, 29, 30, 32)
+dfp2 <- gather(dfp2, division, pick_rate, bronze_pick_rate, grandmaster_pick_rate, factor_key = TRUE)
 
-dftnk <- dfall %>% slice(2, 3, 7, 9, 11, 19, 20, 28)
+dfp2 <- dfp2 %>%
+        group_by(division) %>%
+        arrange(division, desc(pick_rate), hero) %>% 
+        mutate(rank = row_number()) %>%
+        ungroup()
+```
 
-dfsup <- dfall %>% slice(1, 4, 6, 8, 10, 12, 22)
+##Visulaisation 2 - Bump Chart Comparing Rank Order of Heroes in the Bronze and Grandmsater Divsions
 
-p2 <- p1 %>% slice(5, 14, 15, 16, 17, 21, 24, 25, 26, 31)
+Create second visualisation as a slope graph so no exact figures but clearer visualisation of the rankings of pick in lower and higher elos 
+
+```{r create visualisation 2, fig.width=8.5 ,fig.height=9, echo=TRUE, warning=FALSE, include=TRUE}
 
 
+#Set the plot place
+p2 <- ggplot(dfp2, aes(x = division, y = rank, group = hero)) +
+      #Add a line for each hero and make it slighlty transparent for better visability of crossing lines
+      geom_line(aes(color = hero, alpha = 1), size = 2) +
+      #Add a point for each hero to better clarify the start and end point of each line
+      geom_point(aes(color = hero, alpha = 1), size = 4) +
+      #Add a white down in the middle of each point
+      geom_point(color = "#FFFFFF", size = 1) +
+      #Create geom_text to facilitate adding heroes names by their bronze pick rate ranking
+      geom_text(data = dfp2 %>% filter(division == "bronze_pick_rate"),
+            #Add heroes names by their bronze pick rate ranking    
+            aes(label = hero, x = 0.8) , hjust = 0.5,
+            #Make the font bold, black and a speciifc size
+            fontface = "bold", color = "#000000", size = 4) +
+      #Create geom_text to facilitate adding heroes names by their grandmaster pick rate ranking
+      geom_text(data = dfp2 %>% filter(division == "grandmaster_pick_rate"),
+            #Add heroes names by their grandmaster pick rate ranking    
+            aes(label = hero, x = 2.2) , hjust = 0.5,
+            #Make the font bold, black and a speciifc size
+            fontface = "bold", color = "#000000", size = 4) +
+      #Specify tick labels on the x axis
+      scale_x_discrete(labels = c("Bronze Pick Rate Rank", "Grandmaster Pick Rate Rank")) +
+      #Reverse the y axis scale to have the top heroes as the most picked and specify the scale to go up in increments of 1 up to 32
+      scale_y_reverse(breaks = 1:32) + 
+      #Specify the size of the plot title and make it bold
+      theme(plot.title = element_text(size=16, face = "bold"),
+            #Specify the size of the tick labels on the x axis
+            axis.text.x = element_text(size=12),
+            #Specify the size of the axis titles and make them bold
+            axis.title = element_text(size=14,face = "bold"),
+            #Change the paneling on the plot to easy to compare across the visualisation
+            panel.grid.major.y = element_blank(),
+            #Remove the legend 
+            legend.position = "none") +
+      #Specify the labels of the x and y axis
+      labs(x = "Division", 
+           y = "Hero Rank", 
+           #Specify the title and subtitle
+           title = "Overwatch Hero Pick Rate",
+           subtitle = "Heroes ranked by % pick rate in the lowest and highest divisions (Bronze and Grandmaster) over the last 3 months") +
+      #Specify the colours of the heroes lines to match the colour associated with each hero in Overwatch 
+      scale_color_manual(values = c("#2178E9", "#67121D", "#3EA2CB", "#6E994D", "#F3B23A", "#FF7FD1", "#DDCCAC", "#04ADEF", "#84FE01", "#938848", "#D39308", "#8BEC22", "#C83C3C", "#9ADBF4", "#FFE16C", "#B3365D", "#BCC84A", "#2178E9", "#A49D86", "#AA958E", "#C19477", "#5DAB81", "#5D81EB", "#A07DC8", "#5CECFF", "#FF6200", "#F8911B", "#7878D4", "#8991A6", "#4D7883", "#F571A8", "#C79C00")) 
+#Display p2 visualisation
 p2
-
-
 ```
