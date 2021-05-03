@@ -109,8 +109,7 @@ p1 <- plot_ly(dfp1, x = ~hero,
 #Display p1 visualisation  
 p1
 #Save the visualisation
-plotly_IMAGE(p1, width = 900, height = 600, format = "png", scale = 1,
-             out_file = "visualisations/stacked_bar.png")
+
 ```
 
 ## Visualisation 1 Summary
