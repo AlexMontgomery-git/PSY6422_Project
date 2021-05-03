@@ -108,6 +108,9 @@ p1 <- plot_ly(dfp1, x = ~hero,
   }
 #Display p1 visualisation  
 p1
+#Save the visualisation
+plotly_IMAGE(p1, width = 900, height = 600, format = "png", scale = 1,
+             out_file = "visualisations/stacked_bar.png")
 ```
 
 ## Visualisation 1 Summary
@@ -146,23 +149,23 @@ head(dfp2, 5)
 
 #Set the plot place
 p2 <- ggplot(dfp2, aes(x = division, y = rank, group = hero)) +
-      #Add a line for each hero and make it slighlty transparent for better visability of crossing lines
+      #Add a line for each hero and make it slightly transparent for better visability of crossing lines
       geom_line(aes(color = hero, alpha = 1), size = 2) +
       #Add a point for each hero to better clarify the start and end point of each line
       geom_point(aes(color = hero, alpha = 1), size = 4) +
-      #Add a white down in the middle of each point
+      #Add a white dot in the middle of each point
       geom_point(color = "#FFFFFF", size = 1) +
       #Create geom_text to facilitate adding heroes names by their bronze pick rate ranking
       geom_text(data = dfp2 %>% filter(division == "bronze_pick_rate"),
             #Add heroes names by their bronze pick rate ranking    
             aes(label = hero, x = 0.8) , hjust = 0.5,
-            #Make the font bold, black and a speciifc size
+            #Make the font bold, black and a specific size
             fontface = "bold", color = "#000000", size = 4) +
       #Create geom_text to facilitate adding heroes names by their grandmaster pick rate ranking
       geom_text(data = dfp2 %>% filter(division == "grandmaster_pick_rate"),
             #Add heroes names by their grandmaster pick rate ranking    
             aes(label = hero, x = 2.2) , hjust = 0.5,
-            #Make the font bold, black and a speciifc size
+            #Make the font bold, black and a specific size
             fontface = "bold", color = "#000000", size = 4) +
       #Specify tick labels on the x axis
       scale_x_discrete(labels = c("Bronze Pick Rate Rank", "Grandmaster Pick Rate Rank")) +
@@ -188,10 +191,12 @@ p2 <- ggplot(dfp2, aes(x = division, y = rank, group = hero)) +
       scale_color_manual(values = c("#2178E9", "#67121D", "#3EA2CB", "#6E994D", "#F3B23A", "#FF7FD1", "#DDCCAC", "#04ADEF", "#84FE01", "#938848", "#D39308", "#8BEC22", "#C83C3C", "#9ADBF4", "#FFE16C", "#B3365D", "#BCC84A", "#2178E9", "#A49D86", "#AA958E", "#C19477", "#5DAB81", "#5D81EB", "#A07DC8", "#5CECFF", "#FF6200", "#F8911B", "#7878D4", "#8991A6", "#4D7883", "#F571A8", "#C79C00")) 
 #Display p2 visualisation
 p2
+#Save the visualisation
+ggsave("visualisations/bump_chart.png")
 ```
 
 ## Summary of Visualisation 2
-Overall, visualisation 2 makes it far easier to spot trends of heroes that are picked significantly more or less in higher or lower divisions. The steeper the slope of the line, the bigger the difference in pick rate there is from the lowest division to the highest division. It is relatively easy to pick out the steepest slopes to identify the heroes whos pick rate is the most effected by skill level (division). The opposite is true when identifying heroes whos pick rate is least affected by skill level, just look for the flattest lines. Picking out specific heroes is made easier by the choice of colour for the lines. Each heroes line is represented by the colour that is associated with that specific hero. With the target demographic reading this visualisation being individuals who are interested in Overwatch, it is safe to assume that they will know what colours are associated with each hero. To further make the visualisation more readable the lines were made slightly transparent to combat the issue of many lines crossing one another.
+Overall, visualisation 2 makes it far easier to spot trends of heroes that are picked significantly more or less in higher or lower divisions. The steeper the slope of the line, the bigger the difference in pick rate there is from the lowest division to the highest division. It is relatively easy to pick out the steepest slopes to identify the heroes whos pick rate is the most effected by skill level (division). The opposite is true when identifying heroes whos pick rate is least affected by skill level, just look for the flattest lines. Picking out specific heroes is made easier by the choice of colour for the lines. Each heroes line is represented by the colour that is associated with that specific hero. With the target demographic reading this visualisation being individuals who are interested in Overwatch, it is safe to assume that they will know what colours are associated with each hero. To further make the visualisation more readable the lines were made slightly transparent to combat the issue of many lines crossing one another. The colours in the code were assigned in alphabetical order of the heroes, meaning the use of an updated dataset (in which the heroes will likely be in a different order) will still work whilst keeping the colours for each hero correct.
 
 ## Project Summary
 Although visualisation 1 was deemed too busy to easily pick out trends it was a necessary step to take to arrive at the final visualisation (#2). Visualisation 1 demonstrated that too much data made the visualisation more difficult to interpret. Visualisation 1 also showed that the relationship between skill level (division) and pick rate was mostly linear meaning that the data for the middle divisions was not necessary to include in the final visualisation.
@@ -200,6 +205,9 @@ The final visualisation is more than adequate for the purpose it was created, to
 
 Overall the final visualisation presents an adequate amount of data that makes the visualisation very easy to read whilst still providing valuable insights into the relationship between skill level and hero pick rate for each of the 32 heroes in Overwatch.
 
+## Future Direction 
+
+For a future visualisation it may be interesting to make use of another variable in the dataset which is **win rate**. Examining the win rate of heroes in relation to their pick rate may provide an interesting insight as to why certain heroes are picked more. Do the heroes picked more often have higher win rates? If not then this would create a further interesting question as to why the heroes with higher win rates are not picked more often.
 
 
 
