@@ -15,3 +15,4 @@ The project examines the **pick rate** of different heroes across **varying leve
 The project was written in **R script** using the following packages
 - tidyverse
 - ploty
+- knitr
