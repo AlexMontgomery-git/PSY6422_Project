@@ -13,6 +13,6 @@ The data was manually scraped from [overbuff.com](https://www.overbuff.com/heroe
 The project examines the **pick rate** of different heroes across **varying levels of skill (divisions)** and set out to highlight significant trends within the data.
 
 The project was written in **R script** using the following packages
-- tidyverse
-- ploty
-- knitr
+- tidyverse version 1.3.0
+- ploty version 4.9.3
+- knitr version 1.31
