@@ -64,7 +64,7 @@ dfp1 <- dfp1 %>% arrange(desc(totalpick))
 head(dfp1, 5)
 ```
 
-## Creating the Visualisation
+## Creating Visualisation 1
 
 ```{r create visualisation 1, echo=TRUE, warning=FALSE, include=TRUE}
 #Set the plot space and add the first division
@@ -140,7 +140,7 @@ dfp2 <- dfp2 %>%
 head(dfp2, 5)
 ```
 
-## Creating the Visualisation
+## Creating Visualisation 2
 
 ```{r create visualisation 2, fig.width=8.5 ,fig.height=9, echo=TRUE, warning=FALSE, include=TRUE}
 #Set the plot space
