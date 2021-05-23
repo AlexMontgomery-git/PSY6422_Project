@@ -21,4 +21,5 @@ The project was written in **R script** using the following packages
 ## Repository Folders
 
 Visualistions - Contains the 2 visualtions created in the project
+
 Images - Contains images used in the R markdown page
