@@ -20,6 +20,6 @@ The project was written in **R script** using the following packages
 
 ## Repository Folders
 
-Visualisations - Contains the 2 visualisations created in the project
+**visualisations** - Contains the 2 visualisations created in the project
 
-Images - Contains images used in the R markdown page
+**images** Contains images used in the R markdown page
