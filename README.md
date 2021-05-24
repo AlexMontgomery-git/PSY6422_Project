@@ -23,3 +23,8 @@ The project was written in **R script** using the following packages
 **visualisations** - Contains the 2 visualisations created in the project
 
 **images** - Contains images used in the R markdown page
+
+**notes** - Contains wrap-up self assessment
+
+**data** / raw - Containts the raw data
+         / processed - Contains the processed data
