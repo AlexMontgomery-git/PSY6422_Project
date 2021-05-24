@@ -17,3 +17,9 @@ The project was written in **R script** using the following packages
 - ploty version 4.9.3
 - webshot version 0.5.2
 - knitr version 1.31
+
+## Repository Folders
+
+**visualisations** - Contains the 2 visualisations created in the project
+
+**images** - Contains images used in the R markdown page
