@@ -46,7 +46,7 @@ df = read.csv("hero_stats_3_months.csv")
 head(df, 3)
 ```
 ## Codebook
-The table below highlights the variables that shall be used in the following visualisations and provides an explanation of what each variable is.
+The table below highlights the variables that shall be used in the following visualisations and provides an explanation of what each variable is. The pick rates for the divisions are given in a decimal form and represent the amount a hero is picked as a percentage. For example, if a heroes bronze_pick_rate value is 0.0750 this means that hero was picked 7.5% of the time in the Bronze division.
 
 Variable Title | Explanation |
 |:------:|:------|
