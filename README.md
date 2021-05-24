@@ -26,6 +26,4 @@ The project was written in **R script** using the following packages
 
 **notes** - Contains wrap-up self assessment
 
-**data** / raw - Containts the raw data
-
-         / processed - Contains the processed data
+**data** / raw - Containts the raw data / processed - Contains the processed data
