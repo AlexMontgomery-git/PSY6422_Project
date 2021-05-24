@@ -1,0 +1,38 @@
+---
+title: 'PSY6422 final self-assessment'
+author: "Alex Montgomery"
+date: "09/05/2021"
+output: pdf_document
+---
+
+# Marking Criteria
+
+Submits by 12 noon on the 26th of May 2020 in PDF by email to ``t.stafford@shef.ac.uk``
+
+Answers the questions in the headings below, showing evidence of engagement with the course
+
+Note: I expect and hope that all students can get full marks for this assessment. There is no word limit, but short is sweet. I suggest you write between 3 sentences and 3 paragraphs for each.
+
+# Final Self-assessment for PSY6422
+
+
+## 1. Which topic did I find most useful or interesting? Explain why
+
+The topic I found most interesting was learning about ggplot, and in general how to create visualisations in R. I have followed r/dataisbeautiful on Reddit for a while and always wondered how they made many of the visualisations on there. Since learning about creating visualisations in R I have realised the depth of customisation that coding in R facilitates. I hope to pursue a career in data science after my Msc and will hopefully be able to use the skills I have learnt through this module in my future jobs.
+
+
+## 2. Which topic did I find least useful, interesting or most difficult? Explain why
+
+The topic I found least useful was the accessing of remote computers and the teaching we received about the terminal. The reason for this is simply because, as a self-proclaimed computer nerd, much of the knowledge was not new to me. It was a nice refresher of my knowledge, but because I found all the other topics very useful, this topic was the least useful to me. I can see it being useful information to receive for individuals with less computer knowledge, so I think it is still a good addition to the course.
+
+
+## 3. What topics do I want to learn more about in the future? Explain why
+
+I would like to learn more about SQL and how data is managed using SQL as I have come across it many times when reading around data science. I also often see it as a required skill for many jobs in data science, and consequently, I likely need to learn it for my future career. I would also like to learn more about python for the same reasons as SQL. I am particularly interested in how python differs from R in its use case and ease of use. I understand both of these topics are being taught as extra lectures in May, so I shall be attending both of these. 
+
+## 4. Please share one thing you have read and enjoyed or found useful on the topic of data management and/or visualisation
+
+For my project, I did a significant amount of googling to find out the lines of code I needed to create my visualisations. Something I found very interesting during this process was the difference in the coding style of different individuals. I witnessed that some code is much easier to read due to the specific style, such as indenting after certain lines of code or including plenty of comments to explain each line of code. I look forward to furthering my coding skills and knowledge and developing my own coding style.
+
+
+

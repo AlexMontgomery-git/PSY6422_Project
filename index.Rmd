@@ -41,7 +41,7 @@ The way the data is presented by [Overbuff](https://www.overbuff.com/heroes) mak
 
 ```{r load data, echo=TRUE, warning=FALSE, include=TRUE}
 #Load the data set
-df = read.csv("hero_stats_3_months.csv")
+df = read.csv("data/raw/hero_stats_3_months.csv")
 #Check the data is as expected
 head(df, 3)
 ```
@@ -76,6 +76,8 @@ dfp1$totalpick <- rowSums(dfp1[,c(2:8)])
 dfp1 <- dfp1 %>% arrange(desc(totalpick))
 #Check the data is as expected
 head(dfp1, 5)
+#Save processed data
+write.csv(dfp1, file = ("data/processed/dfp1.csv"))
 ```
 
 ## Creating Visualisation 1
@@ -122,7 +124,6 @@ p1 <- plot_ly(dfp1, x = ~hero,
   }
 #Display p1 visualisation  
 p1
-
 ```
 
 ```{r save p1, echo=TRUE, warning=FALSE, include=FALSE}
@@ -152,6 +153,8 @@ dfp2 <- dfp2 %>%
         ungroup()
 #Check the data is as expected
 head(dfp2, 5)
+#Save processed data
+write.csv(dfp2, file = ("data/processed/dfp2.csv"))
 ```
 
 ## Creating Visualisation 2
